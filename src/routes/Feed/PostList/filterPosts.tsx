@@ -12,7 +12,7 @@ interface FilterPostsParams {
 export function filterPosts({
   posts,
   q,
-  tag = "⭐",
+  tag = undefined,
   category = DEFAULT_CATEGORY,
   order = "desc",
 }: FilterPostsParams): TPost[] {
