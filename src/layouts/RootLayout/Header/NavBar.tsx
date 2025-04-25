@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
     {
       id: 2,
       name: "Resume",
-      to: process.env.NEXT_PUBLIC_RESUME_LINK,
+      to: process.env.NEXT_PUBLIC_RESUME_LINK || "#",
       external: true,
       icon: <AiFillFilePdf className="icon" />,
     },
@@ -39,7 +39,7 @@ const NavBar: React.FC = () => {
                 {link.name}
               </a>
             ) : (
-              <Link href={link.to}>{link.name}</Link>
+              <Link href={link.to || "#"}>{link.name}</Link>
             )}
           </li>
         ))}
