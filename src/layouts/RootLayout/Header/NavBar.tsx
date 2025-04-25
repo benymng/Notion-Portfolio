@@ -73,6 +73,10 @@ const StyledWrapper = styled.div`
         font-size: 1rem;
         line-height: 2rem;
         margin-right: 0.5rem;
+        @media (max-width: 768px) {
+          display: none;
+          padding: 0.75rem;
+        }
       }
     }
   }
