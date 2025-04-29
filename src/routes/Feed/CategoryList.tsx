@@ -8,12 +8,12 @@ type Props = {}
 
 const CategoryList: React.FC<Props> = () => {
   const router = useRouter()
-  const currentTag = router.query.tag || undefined
+  const currentCategory = router.query.category || undefined
   const data = useCategoriesQuery()
 
-  const handleClickTag = (value: any) => {
+  const handleClickCategory = (value: any) => {
     // delete
-    if (currentTag === value) {
+    if (currentCategory === value) {
       router.push({
         query: {
           ...router.query,
@@ -41,8 +41,8 @@ const CategoryList: React.FC<Props> = () => {
         {Object.keys(data).map((key) => (
           <a
             key={key}
-            data-active={key === currentTag}
-            onClick={() => handleClickTag(key)}
+            data-active={key === currentCategory}
+            onClick={() => handleClickCategory(key)}
           >
             {key}
           </a>
@@ -72,7 +72,6 @@ const StyledWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.gray4};
     border-radius: 0.75rem;
     padding: 0.25rem;
-
 
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -104,10 +103,10 @@ const StyledWrapper = styled.div`
       }
       &[data-active="true"] {
         color: ${({ theme }) => theme.colors.gray12};
-        background-color: ${({ theme }) => theme.colors.gray4};
+        background-color: ${({ theme }) => theme.colors.gray6};
 
         :hover {
-          background-color: ${({ theme }) => theme.colors.gray4};
+          background-color: ${({ theme }) => theme.colors.gray8};
         }
       }
     }
