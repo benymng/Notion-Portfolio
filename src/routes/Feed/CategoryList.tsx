@@ -2,13 +2,14 @@ import styled from "@emotion/styled"
 import { useRouter } from "next/router"
 import React from "react"
 import { Emoji } from "src/components/Emoji"
+import { DEFAULT_CATEGORY } from "src/constants"
 import { useCategoriesQuery } from "src/hooks/useCategoriesQuery"
 
 type Props = {}
 
 const CategoryList: React.FC<Props> = () => {
   const router = useRouter()
-  const currentCategory = router.query.category || undefined
+  const currentCategory = router.query.category || DEFAULT_CATEGORY
   const data = useCategoriesQuery()
 
   const handleClickCategory = (value: any) => {
