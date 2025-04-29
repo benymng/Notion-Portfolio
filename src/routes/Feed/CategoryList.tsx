@@ -2,14 +2,14 @@ import styled from "@emotion/styled"
 import { useRouter } from "next/router"
 import React from "react"
 import { Emoji } from "src/components/Emoji"
-import { useTagsQuery } from "src/hooks/useTagsQuery"
+import { useCategoriesQuery } from "src/hooks/useCategoriesQuery"
 
 type Props = {}
 
-const TagList: React.FC<Props> = () => {
+const CategoryList: React.FC<Props> = () => {
   const router = useRouter()
   const currentTag = router.query.tag || undefined
-  const data = useTagsQuery()
+  const data = useCategoriesQuery()
 
   const handleClickTag = (value: any) => {
     // delete
@@ -17,7 +17,7 @@ const TagList: React.FC<Props> = () => {
       router.push({
         query: {
           ...router.query,
-          tag: undefined,
+          category: undefined,
         },
       })
     }
@@ -26,7 +26,7 @@ const TagList: React.FC<Props> = () => {
       router.push({
         query: {
           ...router.query,
-          tag: value,
+          category: value,
         },
       })
     }
@@ -35,7 +35,7 @@ const TagList: React.FC<Props> = () => {
   return (
     <StyledWrapper>
       <div className="top">
-        <Emoji>🏷️</Emoji> Tags
+        <Emoji>📚</Emoji> Categories
       </div>
       <div className="list">
         {Object.keys(data).map((key) => (
@@ -52,14 +52,13 @@ const TagList: React.FC<Props> = () => {
   )
 }
 
-export default TagList
+export default CategoryList
 
 const StyledWrapper = styled.div`
   .top {
     display: none;
     padding: 0.25rem;
     margin-bottom: 0.75rem;
-
     @media (min-width: 1024px) {
       display: block;
     }
@@ -70,6 +69,10 @@ const StyledWrapper = styled.div`
     margin-bottom: 1.5rem;
     gap: 0.25rem;
     overflow: scroll;
+    background-color: ${({ theme }) => theme.colors.gray4};
+    border-radius: 0.75rem;
+    padding: 0.25rem;
+
 
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -97,7 +100,7 @@ const StyledWrapper = styled.div`
       cursor: pointer;
 
       :hover {
-        background-color: ${({ theme }) => theme.colors.gray4};
+        background-color: ${({ theme }) => theme.colors.gray6};
       }
       &[data-active="true"] {
         color: ${({ theme }) => theme.colors.gray12};

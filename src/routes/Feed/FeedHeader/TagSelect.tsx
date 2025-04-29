@@ -2,31 +2,41 @@ import useDropdown from "src/hooks/useDropdown"
 import { useRouter } from "next/router"
 import React from "react"
 import { MdExpandMore } from "react-icons/md"
-import { DEFAULT_CATEGORY } from "src/constants"
 import styled from "@emotion/styled"
-import { useCategoriesQuery } from "src/hooks/useCategoriesQuery"
+import { useTagsQuery } from "src/hooks/useTagsQuery"
 
 type Props = {}
 
-const CategorySelect: React.FC<Props> = () => {
+const TagSelect: React.FC<Props> = () => {
   const router = useRouter()
-  const data = useCategoriesQuery()
+  const data = useTagsQuery()
+  data["All"] = 0
   const [dropdownRef, opened, handleOpen] = useDropdown()
 
-  const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
+  const currentCategory = `${router.query.tag || ``}` || "All"
 
-  const handleOptionClick = (category: string) => {
+  const handleOptionClick = (tag: string) => {
+    if (tag == "All") {
+      router.push({
+        query: {
+          ...router.query,
+          tag: undefined,
+        },
+      })
+      return
+    }
+
     router.push({
       query: {
         ...router.query,
-        category,
+        tag,
       },
     })
   }
   return (
     <StyledWrapper>
       <div ref={dropdownRef} className="wrapper" onClick={handleOpen}>
-        {currentCategory} Posts <MdExpandMore />
+        {currentCategory} <MdExpandMore />
       </div>
       {opened && (
         <div className="content">
@@ -36,7 +46,7 @@ const CategorySelect: React.FC<Props> = () => {
               key={idx}
               onClick={() => handleOptionClick(key)}
             >
-              {`${key} (${data[key]})`}
+              {data[key] > 0 ? `${key} (${data[key]})` : key}
             </div>
           ))}
         </div>
@@ -45,7 +55,7 @@ const CategorySelect: React.FC<Props> = () => {
   )
 }
 
-export default CategorySelect
+export default TagSelect
 
 const StyledWrapper = styled.div`
   position: relative;
